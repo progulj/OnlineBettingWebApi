@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using OnlineBettingWebApi.ViewModel;
+using System.Linq;
+using System.Threading.Tasks;
+using OnlineBettingWebApi.Models;
 
-namespace OnlineBettingWebApi.Models
+namespace OnlineBettingWebApi.ViewModel
 {
-    public partial class Ticket
+    public class TicketViewModel
     {
-        private TicketViewModel ticketView;
-
-        public Ticket()
-        {
-            Game = new HashSet<Game>();
-        }
-
         public int Id { get; set; }
         public string TotalOdds { get; set; }
         public decimal? FullPayment { get; set; }
@@ -20,8 +15,8 @@ namespace OnlineBettingWebApi.Models
         public decimal? EstimatedWin { get; set; }
         public int? IdWallet { get; set; }
         public DateTime? Date { get; set; }
-
-        public Wallet IdWalletNavigation { get; set; }
-        public ICollection<Game> Game { get; set; }
+        public string Status { get; set; }
+        public ICollection<Game> Games { get; set; }
+        
     }
 }

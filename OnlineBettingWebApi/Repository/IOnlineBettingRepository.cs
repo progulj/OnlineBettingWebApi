@@ -11,9 +11,9 @@ namespace OnlineBettingWebApi.Repository
     {
         Task<List<OfferViewModel>> GetOffers();
 
-        /**Task<List<TicketViewModel>> GetTickets();
+        /**Task<List<TicketViewModel>> GetTickets();**/
 
-        Task<TicketViewModel> AddTicket(TicketViewModel ticket);**/
+        Task<int> AddTicket(TicketViewModel ticket);
 
         Task<WalletView> GetWallet();
 

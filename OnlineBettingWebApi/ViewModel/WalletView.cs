@@ -7,6 +7,7 @@ namespace OnlineBettingWebApi.ViewModel
 {
     public class WalletView
     {
+     
         public int Id { get; set; }
         public string Account { get; set; }
         public decimal? WalletBalance { get; set; }

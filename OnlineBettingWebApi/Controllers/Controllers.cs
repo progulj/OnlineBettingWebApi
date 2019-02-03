@@ -102,4 +102,44 @@ namespace OnlineBettingWebApi.Controllers
         }
 
     }
+
+    [Route("[controller]")]
+    [ApiController]
+    public class TicketsController : ControllerBase
+    {
+        IOnlineBettingRepository onlineBettingRepository;
+        public TicketsController(IOnlineBettingRepository _onlineBettingRepository)
+        {
+            onlineBettingRepository = _onlineBettingRepository;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddTicket([FromBody]TicketViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    int ticketId = await onlineBettingRepository.AddTicket(model);
+                    if (ticketId > 0)
+                    {
+                        return Ok(ticketId);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                catch (Exception)
+                {
+
+                    return BadRequest();
+                }
+
+            }
+
+            return BadRequest();
+        }
+
+    }
 }
