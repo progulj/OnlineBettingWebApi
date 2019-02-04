@@ -8,7 +8,7 @@ namespace OnlineBettingWebApi.Models
         public int Id { get; set; }
         public string Odds { get; set; }
         public string OddsType { get; set; }
-        public string Game1 { get; set; }
+        public string Name { get; set; }
         public bool? Special { get; set; }
         public int? IdTicket { get; set; }
         public int? IdOffer { get; set; }

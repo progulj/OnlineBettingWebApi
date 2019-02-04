@@ -42,7 +42,7 @@ namespace OnlineBettingWebApi.Models
                     .HasColumnName("DATE")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.Game1)
+                entity.Property(e => e.Name)
                     .HasColumnName("GAME")
                     .HasMaxLength(50)
                     .IsUnicode(false);

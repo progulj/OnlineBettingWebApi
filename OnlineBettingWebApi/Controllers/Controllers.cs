@@ -43,15 +43,15 @@ namespace OnlineBettingWebApi.Controllers
 
         [HttpPost]
         [Route("UpdateWallet")]
-        public async Task<IActionResult> UpdatePost([FromBody]WalletView model)
+        public async Task<IActionResult> UpdatePost([FromBody]WalletViewModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await onlineBettingRepository.UpdateWallet(model);
+                    var updatedWallet = await onlineBettingRepository.UpdateWallet(model);
 
-                    return Ok(model);
+                    return Ok(updatedWallet);
                 }
                 catch (Exception ex)
                 {
@@ -94,6 +94,67 @@ namespace OnlineBettingWebApi.Controllers
                 }
 
                 return Ok(offers);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+    }
+
+    [Route("[controller]")]
+    [ApiController]
+    public class TicketsController : ControllerBase
+    {
+        IOnlineBettingRepository onlineBettingRepository;
+        public TicketsController(IOnlineBettingRepository _onlineBettingRepository)
+        {
+            onlineBettingRepository = _onlineBettingRepository;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddTicket([FromBody]TicketViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    int ticketId = await onlineBettingRepository.AddTicket(model);
+                    if (ticketId > 0)
+                    {
+                        return Ok(ticketId);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                catch (Exception)
+                {
+
+                    return BadRequest();
+                }
+
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetTickets()
+        {
+
+            try
+            {
+                var  tickets = await onlineBettingRepository.GetTickets();
+
+                if (tickets == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(tickets);
             }
             catch (Exception)
             {
