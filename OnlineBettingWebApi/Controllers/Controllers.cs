@@ -6,6 +6,7 @@ using OnlineBettingWebApi.Models;
 using OnlineBettingWebApi.ViewModel;
 using OnlineBettingWebApi.Repository;
 using Microsoft.AspNetCore.Mvc;
+using OnlineBettingWebApi.Utilities;
 
 namespace OnlineBettingWebApi.Controllers
 {
@@ -118,22 +119,29 @@ namespace OnlineBettingWebApi.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
+                Validator validator = new Validator(model);
+                if (validator.IsValid)
                 {
-                    int ticketId = await onlineBettingRepository.AddTicket(model);
-                    if (ticketId > 0)
+                    try
                     {
-                        return Ok(ticketId);
+                        int ticketId = await onlineBettingRepository.AddTicket(model);
+                        if (ticketId > 0)
+                        {
+                            return Ok(ticketId);
+                        }
+                        else
+                        {
+                            return NotFound();
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        return NotFound();
+
+                        return BadRequest();
                     }
                 }
-                catch (Exception)
-                {
-
-                    return BadRequest();
+                else {
+                    return BadRequest(validator.GetViolations().FirstOrDefault());
                 }
 
             }
