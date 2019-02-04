@@ -125,7 +125,7 @@ namespace OnlineBettingWebApi.Repository
 
         public async Task<List<TicketViewModel>> GetTickets()
         {
-            List<TicketViewModel> tickets = await db.Ticket.Include(ticket => ticket.Game).Select(t => (TicketViewModel)t).ToListAsync();
+            List<TicketViewModel> tickets = await db.Ticket.Include(ticket => ticket.Game).Select(t => (TicketViewModel)t).OrderByDescending(date => date.Date).ToListAsync();
 
             return SetTicketStatus(tickets); ;
         }
