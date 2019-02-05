@@ -13,10 +13,10 @@ namespace OnlineBettingWebApi.Controllers
     [ApiController]
     public class OffersController : ControllerBase
     {
-        IOnlineBettingRepository onlineBettingRepository;
-        public OffersController(IOnlineBettingRepository _onlineBettingRepository)
+        IOfferRepository offerRepository;
+        public OffersController(IOfferRepository _offerRepository)
         {
-            onlineBettingRepository = _onlineBettingRepository;
+            offerRepository = _offerRepository;
         }
 
         [HttpGet]
@@ -25,7 +25,7 @@ namespace OnlineBettingWebApi.Controllers
 
             try
             {
-                var offers = await onlineBettingRepository.GetOffers();
+                var offers = await offerRepository.GetOffers();
 
                 if (offers == null)
                 {

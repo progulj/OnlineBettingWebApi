@@ -15,10 +15,10 @@ namespace OnlineBettingWebApi.Controllers
     [ApiController]
     public class TicketsController : ControllerBase
     {
-        IOnlineBettingRepository onlineBettingRepository;
-        public TicketsController(IOnlineBettingRepository _onlineBettingRepository)
+        ITicketRepository ticketsRepository;
+        public TicketsController(ITicketRepository _ticketsRepository)
         {
-            onlineBettingRepository = _onlineBettingRepository;
+            ticketsRepository = _ticketsRepository;
         }
 
         [HttpPost]
@@ -31,7 +31,7 @@ namespace OnlineBettingWebApi.Controllers
                 {
                     try
                     {
-                        int ticketId = await onlineBettingRepository.AddTicket(model);
+                        int ticketId = await ticketsRepository.AddTicket(model);
                         if (ticketId > 0)
                         {
                             return Ok(ticketId);
@@ -62,7 +62,7 @@ namespace OnlineBettingWebApi.Controllers
 
             try
             {
-                var  tickets = await onlineBettingRepository.GetTickets();
+                var  tickets = await ticketsRepository.GetTickets();
 
                 if (tickets == null)
                 {

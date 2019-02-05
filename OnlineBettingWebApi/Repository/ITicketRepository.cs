@@ -7,16 +7,10 @@ using OnlineBettingWebApi.ViewModel;
 
 namespace OnlineBettingWebApi.Repository
 {
-    public  interface IOnlineBettingRepository
+    public  interface ITicketRepository
     {
-        Task<List<OfferViewModel>> GetOffers();
-
         Task<List<TicketViewModel>> GetTickets();
 
         Task<int> AddTicket(Ticket ticket);
-
-        Task<WalletViewModel> GetWallet();
-
-        Task<WalletViewModel> UpdateWallet(WalletViewModel wallet);
     }
 }

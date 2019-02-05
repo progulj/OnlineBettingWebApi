@@ -13,10 +13,10 @@ namespace OnlineBettingWebApi.Controllers
     [ApiController]
     public class WalletController : ControllerBase
     {
-        IOnlineBettingRepository onlineBettingRepository;
-        public WalletController(IOnlineBettingRepository _onlineBettingRepository)
+        IWalletRepository walletRepository;
+        public WalletController(IWalletRepository _walletRepository)
         {
-            onlineBettingRepository = _onlineBettingRepository;
+            walletRepository = _walletRepository;
         }
 
         [HttpGet]
@@ -25,7 +25,7 @@ namespace OnlineBettingWebApi.Controllers
 
             try
             {
-                var wallet = await onlineBettingRepository.GetWallet();
+                var wallet = await walletRepository.GetWallet();
 
                 if (wallet == null)
                 {
@@ -47,7 +47,7 @@ namespace OnlineBettingWebApi.Controllers
             {
                 try
                 {
-                    var updatedWallet = await onlineBettingRepository.UpdateWallet(model);
+                    var updatedWallet = await walletRepository.UpdateWallet(model);
 
                     return Ok(updatedWallet);
                 }

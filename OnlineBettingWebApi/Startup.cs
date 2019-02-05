@@ -34,7 +34,9 @@ namespace OnlineBettingWebApi
             }));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<OnlineBettingContext>(item => item.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
-            services.AddScoped<IOnlineBettingRepository, OnlineBettingRepository>();
+            services.AddScoped<IOfferRepository, OfferRepository>();
+            services.AddScoped<ITicketRepository, TicketRepository>();
+            services.AddScoped<IWalletRepository, WalletRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
